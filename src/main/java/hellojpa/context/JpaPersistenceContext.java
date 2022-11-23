@@ -18,7 +18,9 @@ public class JpaPersistenceContext {
             //JPA code
             jpaCode.execute(em);
 
+            System.out.println("=== BEFORE COMMIT ===");
             tx.commit();
+            System.out.println("=== AFTER COMMIT ===");
         } catch (Exception e) {
             tx.rollback();
         } finally {
