@@ -1,13 +1,14 @@
 package hellojpa;
 
-import hellojpa.context.JpaPersistenceContext;
-import hellojpa.jpa.JpaCRUD;
 import hellojpa.jpa.JpaPersistence;
+
+import static hellojpa.context.JpaPersistenceContext.create;
 
 public class JpaMain {
     public static void main(String[] args) {
-        JpaPersistenceContext.create(em -> {
-            JpaCRUD.selectMembersByNameWithPaging(em, 0, 1, "helloJpa");
+        create(em -> {
+            JpaPersistence.remove(em,
+                    JpaPersistence.persist(em, 102L, "helloJPA2"));
         });
     }
 }
