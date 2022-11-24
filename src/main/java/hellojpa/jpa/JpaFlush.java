@@ -29,7 +29,7 @@ public class JpaFlush {
      */
     public static List jpqlSelect(EntityManager em) {
         System.out.println("==BEFORE jpql==");
-        List members = em.createQuery("select m from Member m").getResultList();
+        List members = em.createQuery("select m from MemberJpa m").getResultList();
         System.out.println("==AFTER jpql==");
         return members;
     }

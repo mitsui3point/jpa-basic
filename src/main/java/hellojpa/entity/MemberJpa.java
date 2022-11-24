@@ -5,17 +5,17 @@ import javax.persistence.Id;
 
 @Entity
 //@Table(name = "MBR")
-public class Member {
+public class MemberJpa {
 
     @Id
     private Long id;
 //    @Column(name = "USERNAME", unique = true, length = 10)
     private String name;
 
-    protected Member() {
+    protected MemberJpa() {
     }
 
-    public Member(Long id, String name) {
+    public MemberJpa(Long id, String name) {
         this.id = id;
         this.name = name;
     }

@@ -1,6 +1,6 @@
 package hellojpa.jpa;
 
-import hellojpa.entity.Member;
+import hellojpa.entity.MemberJpa;
 
 import javax.persistence.EntityManager;
 
@@ -10,29 +10,29 @@ public class JpaPersistence {
      * 비영속 -> 영속
      * entityManager.persist()
      */
-    public static Member persist(EntityManager em, long id, String name) {
+    public static MemberJpa persist(EntityManager em, long id, String name) {
         //비영속 상태
-        Member member = new Member(id, name);
+        MemberJpa memberJpa = new MemberJpa(id, name);
 
         //영속
         System.out.println("=== BEFORE persist ===");
-        em.persist(member);
+        em.persist(memberJpa);
         System.out.println("=== AFTER persist ===");
-        return member;
+        return memberJpa;
     }
 
     /**
      * 영속 -> 영속성 컨텍스트에서 분리, 준영속 상태
      */
-    public static void detach(EntityManager em, Member persistedMember) {
-        em.detach(persistedMember);
+    public static void detach(EntityManager em, MemberJpa persistedMemberJpa) {
+        em.detach(persistedMemberJpa);
     }
 
     /**
      * 영속 -> 객체 삭제 및 RDB 데이터 제거
      */
-    public static void remove(EntityManager em, Member persistedMember) {
-        em.remove(persistedMember);
+    public static void remove(EntityManager em, MemberJpa persistedMemberJpa) {
+        em.remove(persistedMemberJpa);
     }
 
     /**
@@ -40,11 +40,11 @@ public class JpaPersistence {
      */
     public static void firstCacheFind(EntityManager em, long id) {
         System.out.println("==1st find==");
-        em.find(Member.class, id);
+        em.find(MemberJpa.class, id);
         System.out.println("==//1st find==\n");
 
         System.out.println("==2nd find==");
-        em.find(Member.class, id);
+        em.find(MemberJpa.class, id);
         System.out.println("==//2nd find==");
     }
 
@@ -53,18 +53,18 @@ public class JpaPersistence {
      * (== 비교 보장; 같은 레퍼런스를 할당받은 변수 비교와 같은 맥락)
      */
     public static void findOneEqual(EntityManager em, long id) {
-        Member member1 = em.find(Member.class, id);
-        Member member2 = em.find(Member.class, id);
-        System.out.println("member1 == member2: " + (member1 == member2));
+        MemberJpa memberJpa1 = em.find(MemberJpa.class, id);
+        MemberJpa memberJpa2 = em.find(MemberJpa.class, id);
+        System.out.println("member1 == member2: " + (memberJpa1 == memberJpa2));
     }
 
     /**
      * 영속 엔티티 트랜잭션을 지원하는 쓰기지연
      * (== 비교 보장; 같은 레퍼런스를 할당받은 변수 비교와 같은 맥락)
      */
-    public static void transactionalWriteBehind(EntityManager em, Member member1, Member member2) {
-        em.persist(member1);
-        em.persist(member2);
+    public static void transactionalWriteBehind(EntityManager em, MemberJpa memberJpa1, MemberJpa memberJpa2) {
+        em.persist(memberJpa1);
+        em.persist(memberJpa2);
         System.out.println("==persist end==");
     }
 
@@ -80,9 +80,9 @@ public class JpaPersistence {
      */
     public static void setEntity(EntityManager em, long id, String name) {
         //영속 엔티티 조회
-        Member member = em.find(Member.class, id);
+        MemberJpa memberJpa = em.find(MemberJpa.class, id);
         //영속 엔티티 데이터 수정
-        member.setName(name);
+        memberJpa.setName(name);
         System.out.println("==set name end==");
     }
 }

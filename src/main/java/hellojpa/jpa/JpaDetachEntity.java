@@ -1,6 +1,6 @@
 package hellojpa.jpa;
 
-import hellojpa.entity.Member;
+import hellojpa.entity.MemberJpa;
 
 import javax.persistence.EntityManager;
 import java.util.Arrays;
@@ -16,9 +16,9 @@ public class JpaDetachEntity {
      * em.detach
      */
     public static void detachedEntitySet(EntityManager em, long id, String updateName) {
-        Member entityMember = em.find(Member.class, id);
-        entityMember.setName(updateName);
-        em.detach(entityMember);
+        MemberJpa entityMemberJpa = em.find(MemberJpa.class, id);
+        entityMemberJpa.setName(updateName);
+        em.detach(entityMemberJpa);
     }
 
     /**
@@ -31,13 +31,13 @@ public class JpaDetachEntity {
     public static void clearEntitySet(EntityManager em, Long... ids) {
         String updateName = "updateName";
         for (long id : ids) {
-            em.find(Member.class, id)
+            em.find(MemberJpa.class, id)
                     .setName(updateName);
         }
         em.clear();
         System.out.println("==AFTER clear==");
         Optional<Long> first = Arrays.stream(ids).findFirst();
-        Member member = em.find(Member.class, first.get());
+        MemberJpa memberJpa = em.find(MemberJpa.class, first.get());
     }
 
     /**
@@ -47,12 +47,12 @@ public class JpaDetachEntity {
     public static void closeEntitySet(EntityManager em, Long... ids) {
         String updateName = "updateName";
         for (long id : ids) {
-            em.find(Member.class, id)
+            em.find(MemberJpa.class, id)
                     .setName(updateName);
         }
         em.close();
         System.out.println("==AFTER close==");
         Optional<Long> first = Arrays.stream(ids).findFirst();
-        Member member = em.find(Member.class, first.get());
+        MemberJpa memberJpa = em.find(MemberJpa.class, first.get());
     }
 }
