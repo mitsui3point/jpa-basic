@@ -55,9 +55,7 @@ public class JpaCRUD {
      * 회원 엔티티 등록
      */
     public static void insertMember(EntityManager em, long id, String name) {
-        Member member = new Member();
-        member.setId(id);
-        member.setName(name);
+        Member member = new Member(id, name);
 
         em.persist(member);
     }
