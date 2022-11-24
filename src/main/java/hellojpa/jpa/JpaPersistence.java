@@ -15,9 +15,9 @@ public class JpaPersistence {
         Member member = new Member(id, name);
 
         //영속
-        System.out.println("=== BEFORE ===");
+        System.out.println("=== BEFORE persist ===");
         em.persist(member);
-        System.out.println("=== AFTER ===");
+        System.out.println("=== AFTER persist ===");
         return member;
     }
 
