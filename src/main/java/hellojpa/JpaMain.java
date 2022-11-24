@@ -12,7 +12,10 @@ public class JpaMain {
         create(em -> {
             Member member = new Member();
             member.setUsername("usernameA");
+            System.out.println("====================");
             em.persist(member);
+            System.out.println("member.getId() = " + member.getId());
+            System.out.println("====================");
         });
     }
 }
