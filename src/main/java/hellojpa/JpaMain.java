@@ -11,7 +11,6 @@ public class JpaMain {
     public static void main(String[] args) {
         create(em -> {
             Member member = new Member();
-            member.setId("ID_A");
             member.setUsername("usernameA");
             em.persist(member);
         });
