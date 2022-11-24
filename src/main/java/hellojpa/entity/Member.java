@@ -4,10 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+//@Table(name = "MBR")
 public class Member {
 
     @Id
     private Long id;
+//    @Column(name = "USERNAME", unique = true, length = 10)
     private String name;
 
     protected Member() {
