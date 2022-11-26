@@ -42,4 +42,12 @@ public class Team {
     public List<Member> getMembers() {
         return this.members;
     }
+
+    /**
+     * 연관관계 편의 메서드 - 역방향
+     */
+    public void addMember(Member member) {
+        member.setTeam(this);
+        this.members.add(member);
+    }
 }

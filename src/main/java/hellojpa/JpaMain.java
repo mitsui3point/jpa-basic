@@ -17,13 +17,14 @@ public class JpaMain {
 
             Member memberA = new Member();
             memberA.setName("memberA");
-            memberA.changeTeam(team);//연관관계의 주인에 값 설정
             em.persist(memberA);
 
             Member memberB = new Member();
             memberB.setName("memberB");
-            memberB.changeTeam(team);//연관관계의 주인에 값 설정
             em.persist(memberB);
+
+            team.addMember(memberA);
+            team.addMember(memberB);
 
 //            em.flush();
 //            em.clear();

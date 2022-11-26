@@ -37,11 +37,7 @@ public class Member {
         return team;
     }
 
-    /**
-     * 연관관계 편의 메서드
-     */
-    public void changeTeam(Team team) {
+    public void setTeam(Team team) {
         this.team = team;
-        this.team.getMembers().add(this);
     }
 }
