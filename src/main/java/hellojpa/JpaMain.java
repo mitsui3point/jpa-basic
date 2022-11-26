@@ -1,45 +1,41 @@
 package hellojpa;
 
-import hellojpa.constants.RoleType;
 import hellojpa.entity.Member;
-import hellojpa.jpa.JpaCRUD;
-import hellojpa.jpa.JpaDetachEntity;
+import hellojpa.entity.Team;
 
 import static hellojpa.context.JpaPersistenceContext.create;
 
 public class JpaMain {
     public static void main(String[] args) {
         create(em -> {
-            Member member1 = new Member();
-            member1.setUsername("A");
 
-            Member member2 = new Member();
-            member2.setUsername("B");
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
 
-            Member member3 = new Member();
-            member3.setUsername("C");
+            Member member = new Member();
+            member.setName("memberA");
+            member.setTeam(team);
+            em.persist(member);
 
-            Member member4 = new Member();
-            member4.setUsername("D");
+            em.flush();//1차캐시 비우고 다시 조회하기 위한 목적
+            em.clear();
 
-            Member member5 = new Member();
-            member5.setUsername("E");
+            Member findMember = em.find(Member.class, member.getId());//member 1차캐시에서 제거됨, 1차캐시 재등록
 
-            System.out.println("====================");
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam = " + findTeam.getName());
 
-            em.persist(member1);//call next value for MEMBER_SEQ 1, call next value for MEMBER_SEQ 51
-            em.persist(member2);//memory
-            em.persist(member3);//memory
-            em.persist(member4);//memory
-            em.persist(member5);//memory
+            Team newTeam = new Team();
+            newTeam.setName("newTeam");
+            em.persist(newTeam);
 
-            System.out.println("member1 = " + member1);
-            System.out.println("member2 = " + member2);
-            System.out.println("member3 = " + member3);
-            System.out.println("member4 = " + member4);
-            System.out.println("member5 = " + member5);
+            findMember.setTeam(newTeam);
 
-            System.out.println("====================");
+            Team findAfterSetTeam = em.find(Member.class,
+                            member.getId())
+                    .getTeam();
+            System.out.println("findAfterSetTeam = " + findAfterSetTeam.getName());
         });
     }
 }

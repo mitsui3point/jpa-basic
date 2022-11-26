@@ -1,24 +1,20 @@
 package hellojpa.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-//@Table(name = "MBR")
-public class MemberJpa {
+public class Team {
 
     @Id
+    @GeneratedValue
+    @Column(name = "TEAM_ID")
     private Long id;
-//    @Column(name = "USERNAME", unique = true, length = 10)
+
+    @Column(name = "TEAM_NAME")
     private String name;
-
-    protected MemberJpa() {
-    }
-
-    public MemberJpa(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     public Long getId() {
         return id;
