@@ -13,6 +13,7 @@ public class Member {
     @Column(name = "USERNAME")
     private String name;
 
+    //read write; 연관관계 주인인 경우
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TEAM_ID")
     private Team team;

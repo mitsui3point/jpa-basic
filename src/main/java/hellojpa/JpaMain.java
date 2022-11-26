@@ -11,28 +11,38 @@ public class JpaMain {
     public static void main(String[] args) {
         create(em -> {
 
-            Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
-
             Member memberA = new Member();
             memberA.setName("memberA");
-            memberA.setTeam(team);
             em.persist(memberA);
 
             Member memberB = new Member();
             memberB.setName("memberB");
-            memberB.setTeam(team);
             em.persist(memberB);
 
-            em.flush();//1차캐시 비우고 다시 조회하기 위한 목적
+            Team team = new Team();
+            team.setName("teamA");
+            team.getMembers().add(memberA);//역방향(주인이 아닌 방향)만 연관관계 설정
+            team.getMembers().add(memberB);//역방향(주인이 아닌 방향)만 연관관계 설정
+            em.persist(team);
+
+            em.flush();
             em.clear();
 
-            Member findMember = em.find(Member.class, memberA.getId());
-            List<Member> members = findMember.getTeam().getMembers();//member -> team -> member ; 양방향 연관관계
-            for (Member m : members) {
-                System.out.println("member = " + m.getName());
-            }
+            /**
+             * RDB 확인
+             * 		: memberA.getTeam() == null 이므로
+             * 		  rollback 되어 sysout 으로 확인 불가
+             * ============================================================
+             * SELECT * FROM MEMBER ;
+             * MEMBER_ID	USERNAME	TEAM_ID
+             * 1			memberA 	null
+             * 2			memberB 	null
+             * ============================================================
+             * SELECT * FROM TEAM ;
+             * TEAM_ID		TEAM_NAME
+             * 3			teamA
+             * ============================================================
+             */
         });
     }
 }
