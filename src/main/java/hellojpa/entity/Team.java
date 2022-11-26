@@ -50,4 +50,14 @@ public class Team {
         member.setTeam(this);
         this.members.add(member);
     }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+//                ", members=" + members.get(0).toString(), members.get(1).toString().. +
+                ", members=" + members +
+                '}';
+    }
 }
