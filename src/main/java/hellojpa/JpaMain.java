@@ -25,8 +25,8 @@ public class JpaMain {
             memberB.setTeam(team);//연관관계의 주인에 값 설정
             em.persist(memberB);
 
-//            team.getMembers().add(memberA);
-//            team.getMembers().add(memberB);
+            team.getMembers().add(memberA);
+            team.getMembers().add(memberB);
 
 //            em.flush();
 //            em.clear();
