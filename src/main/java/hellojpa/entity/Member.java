@@ -33,12 +33,15 @@ public class Member {
     public void setName(String name) {
         this.name = name;
     }
-
     public Team getTeam() {
         return team;
     }
 
-    public void setTeam(Team team) {
+    /**
+     * 연관관계 편의 메서드
+     */
+    public void changeTeam(Team team) {
         this.team = team;
+        this.team.getMembers().add(this);
     }
 }
