@@ -25,23 +25,20 @@ public class JpaMain {
             memberB.setTeam(team);//연관관계의 주인에 값 설정
             em.persist(memberB);
 
-            em.flush();
-            em.clear();
+//            team.getMembers().add(memberA);
+//            team.getMembers().add(memberB);
 
-            /**
-             * RDB 확인
-             * 		: memberA.getTeam() == null 이므로
-             * 		  rollback 되어 sysout 으로 확인 불가
-             * ============================================================
-             * SELECT * FROM MEMBER ;
-             * MEMBER_ID	USERNAME	TEAM_ID
-             * 2			memberA		1(지정됨)
-             * 3			memberB		1(지정됨)
-             * ============================================================
-             * SELECT * FROM TEAM ;
-             * TEAM_ID	TEAM_NAME
-             * 1		teamA
-             */
+//            em.flush();
+//            em.clear();
+
+            Team findTeam = em.find(Team.class, team.getId()); //1차 캐시
+            System.out.println("=========================1");
+            List<Member> findTeamMembers = findTeam.getMembers(); //값이 없음; 영속성 컨텍스트에 값을 넣을때 line 14~16의 상태 그대로 들어가있음. 연관관계 매핑이 된 members 는 없는 상태
+            System.out.println("=========================2");
+            for (Member findTeamMember : findTeamMembers) {
+                System.out.println("findTeamMember = " + findTeamMember.getName());
+            }
+            System.out.println("=========================3");
         });
     }
 }
