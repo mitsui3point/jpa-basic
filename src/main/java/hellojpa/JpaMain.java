@@ -11,19 +11,19 @@ public class JpaMain {
     public static void main(String[] args) {
         create(em -> {
 
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
             Member memberA = new Member();
             memberA.setName("memberA");
+            memberA.setTeam(team);//연관관계의 주인에 값 설정
             em.persist(memberA);
 
             Member memberB = new Member();
             memberB.setName("memberB");
+            memberB.setTeam(team);//연관관계의 주인에 값 설정
             em.persist(memberB);
-
-            Team team = new Team();
-            team.setName("teamA");
-            team.getMembers().add(memberA);//역방향(주인이 아닌 방향)만 연관관계 설정
-            team.getMembers().add(memberB);//역방향(주인이 아닌 방향)만 연관관계 설정
-            em.persist(team);
 
             em.flush();
             em.clear();
@@ -35,13 +35,12 @@ public class JpaMain {
              * ============================================================
              * SELECT * FROM MEMBER ;
              * MEMBER_ID	USERNAME	TEAM_ID
-             * 1			memberA 	null
-             * 2			memberB 	null
+             * 2			memberA		1(지정됨)
+             * 3			memberB		1(지정됨)
              * ============================================================
              * SELECT * FROM TEAM ;
-             * TEAM_ID		TEAM_NAME
-             * 3			teamA
-             * ============================================================
+             * TEAM_ID	TEAM_NAME
+             * 1		teamA
              */
         });
     }
