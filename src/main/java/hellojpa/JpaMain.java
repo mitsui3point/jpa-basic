@@ -26,18 +26,16 @@ public class JpaMain {
             team.getMembers().add(memberA);
             team.getMembers().add(memberB);
 
+            memberA.setTeam(team);
+            memberB.setTeam(team);
+
             em.persist(team);
 
 //            em.flush();
 //            em.clear();
 
-            Team findTeam = em.find(Team.class, team.getId()); //1차 캐시
-            List<Member> findTeamMembers = findTeam.getMembers();
-
-            System.out.println("findTeam = " + findTeam.getName());
-            for (Member findTeamMember : findTeamMembers) {
-                System.out.println("findTeamMember = " + findTeamMember.getName());
-            }
+            Member findMemberA = em.find(Member.class, memberA.getId());
+            System.out.println("findMemberA.getTeam() = " + findMemberA.getTeam().getName());
         });
     }
 }
