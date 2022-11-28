@@ -23,15 +23,16 @@ public class JpaMain {
             memberB.setName("memberB");
             em.persist(memberB);
 
-            team.addMember(memberA);
-            team.addMember(memberB);
-
 //            em.flush();
 //            em.clear();
 
             Team findTeam = em.find(Team.class, team.getId()); //1차 캐시
-            List<Member> findTeamMembers = findTeam.getMembers(); //값이 없음; 영속성 컨텍스트에 값을 넣을때 line 14~16의 상태 그대로 들어가있음. 연관관계 매핑이 된 members 는 없는 상태
-            System.out.println("findTeam = " + findTeam);
+            Member member1 = em.find(Member.class, memberA.getId());//1차 캐시
+            Member member2 = em.find(Member.class, memberB.getId());//1차 캐시
+
+            System.out.println("findTeam = " + findTeam.getName());
+            System.out.println("member1 = " + member1.getName());
+            System.out.println("member2 = " + member2.getName());
         });
     }
 }

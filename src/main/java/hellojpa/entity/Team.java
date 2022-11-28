@@ -15,10 +15,6 @@ public class Team {
     @Column(name = "TEAM_NAME")
     private String name;
 
-    //read only; 연관관계 주인이 아닌 경우
-    @OneToMany(mappedBy = "team")
-    private List<Member> members = new ArrayList<>();
-
     public Long getId() {
         return id;
     }
@@ -33,31 +29,5 @@ public class Team {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setMembers(List<Member> members) {
-        this.members = members;
-    }
-
-    public List<Member> getMembers() {
-        return this.members;
-    }
-
-    /**
-     * 연관관계 편의 메서드 - 역방향
-     */
-    public void addMember(Member member) {
-        member.setTeam(this);
-        this.members.add(member);
-    }
-
-    @Override
-    public String toString() {
-        return "Team{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-//                ", members=" + members.get(0).toString(), members.get(1).toString().. +
-                ", members=" + members +
-                '}';
     }
 }
