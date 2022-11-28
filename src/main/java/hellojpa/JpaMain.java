@@ -11,10 +11,6 @@ public class JpaMain {
     public static void main(String[] args) {
         create(em -> {
 
-            Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
-
             Member memberA = new Member();
             memberA.setName("memberA");
             em.persist(memberA);
@@ -23,8 +19,14 @@ public class JpaMain {
             memberB.setName("memberB");
             em.persist(memberB);
 
-            team.addMember(memberA);
-            team.addMember(memberB);
+            Team team = new Team();
+            team.setName("teamA");
+
+            // create one-to-many row hellojpa.entity.Team.members
+            team.getMembers().add(memberA);
+            team.getMembers().add(memberB);
+
+            em.persist(team);
 
 //            em.flush();
 //            em.clear();

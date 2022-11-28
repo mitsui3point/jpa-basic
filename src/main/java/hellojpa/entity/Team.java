@@ -15,8 +15,8 @@ public class Team {
     @Column(name = "TEAM_NAME")
     private String name;
 
-    //read only; 연관관계 주인이 아닌 경우
-    @OneToMany(mappedBy = "team")
+    @OneToMany
+    @JoinColumn(name = "TEAM_ID")
     private List<Member> members = new ArrayList<>();
 
     public Long getId() {
@@ -41,11 +41,5 @@ public class Team {
 
     public List<Member> getMembers() {
         return this.members;
-    }
-
-    //==연관관계 메서드==//
-    public void addMember(Member member) {
-        this.members.add(member);
-        member.setTeam(this);
     }
 }

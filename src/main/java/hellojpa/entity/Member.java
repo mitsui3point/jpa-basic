@@ -13,11 +13,6 @@ public class Member {
     @Column(name = "USERNAME")
     private String name;
 
-    //read write; 연관관계 주인인 경우
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
-
     public Long getId() {
         return id;
     }
@@ -32,12 +27,5 @@ public class Member {
 
     public void setName(String name) {
         this.name = name;
-    }
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
 }
