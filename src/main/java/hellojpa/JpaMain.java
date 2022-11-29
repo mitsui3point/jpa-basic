@@ -24,11 +24,14 @@ public class JpaMain {
 
             member.setLocker(locker);
             member.setTeam(team);
+            
+            locker.setMember(member);
 
             System.out.println("locker = " + locker.getId() + ", " + locker.getName());
             System.out.println("team = " + team.getId() + ", " + team.getName());
             System.out.println("member = " + member.getId() + ", " + member.getName());
             System.out.println("member.getLocker() = " + member.getLocker().getName());
+            System.out.println("locker.getMember() = " + locker.getMember().getName());
 
             em.flush();
             em.clear();
