@@ -1,6 +1,7 @@
 package hellojpa;
 
 import hellojpa.entity.Member;
+import hellojpa.entity.Order;
 import hellojpa.entity.Product;
 
 import static hellojpa.context.JpaPersistenceContext.create;
@@ -25,20 +26,18 @@ public class JpaMain {
             productB.setName("productB");
             em.persist(productB);
 
-            memberA.getProducts().add(productA);
-            memberA.getProducts().add(productB);
-            memberB.getProducts().add(productA);
-//            memberB.getProducts().add(productB);
-//            productA.getMembers().add(memberA);
-//            productA.getMembers().add(memberB);
-//            productB.getMembers().add(memberA);
-//            productB.getMembers().add(memberB);
+            Order orderA = new Order();
+            orderA.setMember(memberA);
+            orderA.setProduct(productA);
+            em.persist(orderA);
+
+            Order orderB = new Order();
+            orderB.setMember(memberB);
+            orderB.setProduct(productB);
+            em.persist(orderB);
 
             em.flush();
             em.clear();
-
-
-
         });
     }
 }

@@ -13,8 +13,8 @@ public class Product {
 
     private String name;
 
-    @ManyToMany(mappedBy = "products")
-    private List<Member> members = new ArrayList<>();
+    @OneToMany(mappedBy = "product")
+    private List<Order> orders = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -32,11 +32,11 @@ public class Product {
         this.name = name;
     }
 
-    public List<Member> getMembers() {
-        return members;
+    public List<Order> getMemberProducts() {
+        return orders;
     }
 
-    public void setMembers(List<Member> members) {
-        this.members = members;
+    public void setMemberProducts(List<Order> orders) {
+        this.orders = orders;
     }
 }
