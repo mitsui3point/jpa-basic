@@ -17,8 +17,7 @@ public class Member {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
-    @OneToOne
-    @JoinColumn(name = "LOCKER_ID")
+    @OneToOne(mappedBy = "member")
     private Locker locker;
 
     public Long getId() {

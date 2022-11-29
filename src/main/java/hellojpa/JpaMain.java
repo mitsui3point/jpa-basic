@@ -24,7 +24,7 @@ public class JpaMain {
 
             member.setLocker(locker);
             member.setTeam(team);
-            
+
             locker.setMember(member);
 
             System.out.println("locker = " + locker.getId() + ", " + locker.getName());
