@@ -7,32 +7,20 @@ import static hellojpa.context.JpaPersistenceContext.create;
 public class JpaMain {
     public static void main(String[] args) {
         create(em -> {
-            Member member1 = new Member();
-            member1.setName("member1");
-            em.persist(member1);
-
-            Member member2 = new Member();
-            member2.setName("member1");
-            em.persist(member2);
+            Member member = new Member();
+            member.setName("member1");
+            em.persist(member);
 
             em.flush();
             em.clear();
 
-            Member findMember1 = em.find(Member.class, member1.getId());
-            Member findMember2 = em.getReference(Member.class, member2.getId());
+            Member findMember1 = em.find(Member.class, member.getId());//Member
+            System.out.println("findMember1 = " + findMember1.getClass());
 
-            externalLogic(findMember1, findMember2);
+            Member findMember2 = em.getReference(Member.class, member.getId());//expected Proxy but Member
+            System.out.println("findMember2 = " + findMember2.getClass());
+
+            System.out.println("findMember1 == findMember2 : " + (findMember1 == findMember2));// == 비교 메커니즘을 맞추기 위해 타입을 맞춤
         });
-    }
-
-    private static void externalLogic(Member member1, Member member2) {
-        System.out.println("member1 = " + member1.getClass());
-        System.out.println("member2 = " + member2.getClass());
-        boolean result = member1.getClass() == member2.getClass();
-        System.out.println("member1 == member2 = " + result);
-        boolean result1 = member1 instanceof Member;
-        boolean result2 = member2 instanceof Member;
-        System.out.println("result1 = " + result1);
-        System.out.println("result2 = " + result2);
     }
 }
