@@ -23,6 +23,7 @@ public class JpaPersistenceContext {
             System.out.println("=== AFTER COMMIT ===");
         } catch (Exception e) {
             tx.rollback();
+            e.printStackTrace();
         } finally {
             em.close();
         }

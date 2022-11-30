@@ -14,13 +14,14 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            Member findMember1 = em.getReference(Member.class, member.getId());//Proxy
-            System.out.println("findMember1 = " + findMember1.getClass());
+//            Member findMember = em.find(Member.class, member.getId());//Proxy
+            Member findMember = em.getReference(Member.class, member.getId());//Proxy
+            System.out.println("findMember1 = " + findMember.getClass());
 
-            Member findMember2 = em.find(Member.class, member.getId());//expected Member but Proxy
-            System.out.println("findMember2 = " + findMember2.getClass());
+//            em.detach(findMember);
+            em.clear();
 
-            System.out.println("findMember1 == findMember2 : " + (findMember1 == findMember2));// == 비교 메커니즘을 맞추기 위해 타입을 맞춤
+            findMember.getName();//영속성 컨텍스트에서 detach 된 준영속 객체는 영속성 컨텍스트의 도움을 받지 못한다.(org.hibernate.LazyInitializationException: could not initialize proxy)
         });
     }
 }
