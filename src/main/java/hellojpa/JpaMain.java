@@ -22,8 +22,7 @@ public class JpaMain {
             Member findMember = em.getReference(Member.class, member.getId());//Proxy
             System.out.println("findMember1 = " + findMember.getClass());//hellojpa.entity.Member$HibernateProxy$11wPBqYD
 
-//            findMember.getName();//강제 초기화
-            Hibernate.initialize(findMember);//강제 초기화
+            findMember.getName();//강제 초기화; jpa 표준은 강제 초기화 메서드 없음
         });
     }
 }
