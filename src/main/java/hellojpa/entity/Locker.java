@@ -1,9 +1,11 @@
 package hellojpa.entity;
 
+import hellojpa.entity.base.BaseEntity;
+
 import javax.persistence.*;
 
 @Entity
-public class Locker {
+public class Locker extends BaseEntity {
     @Id
     @GeneratedValue
     @Column(name = "LOCKER_ID")
