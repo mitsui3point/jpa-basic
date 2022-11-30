@@ -16,7 +16,7 @@ public class JpaPersistenceContext {
 
         try {
             //JPA code
-            jpaCode.execute(em);
+            jpaCode.execute(em, emf);
 
             System.out.println("=== BEFORE COMMIT ===");
             tx.commit();
