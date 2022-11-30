@@ -21,9 +21,6 @@ public class Member extends BaseEntity {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
-    @OneToOne(mappedBy = "member")
-    private Locker locker;
-
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
@@ -49,13 +46,5 @@ public class Member extends BaseEntity {
 
     public void setTeam(Team team) {
         this.team = team;
-    }
-
-    public Locker getLocker() {
-        return locker;
-    }
-
-    public void setLocker(Locker locker) {
-        this.locker = locker;
     }
 }
