@@ -19,10 +19,7 @@ public class JpaMain {
             em.clear();
 
             Member findMember = em.getReference(Member.class, member.getId());//Proxy
-            System.out.println("findMember1 = " + findMember.getClass());
-
-            findMember.getName();
-            System.out.println("isLoaded = " + emf.getPersistenceUnitUtil().isLoaded(findMember));
+            System.out.println("findMember1 = " + findMember.getClass());//hellojpa.entity.Member$HibernateProxy$11wPBqYD
         });
     }
 }
