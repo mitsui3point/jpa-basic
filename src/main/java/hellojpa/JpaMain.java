@@ -32,7 +32,9 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            List<Member> members = em.createQuery("select m from Member m", Member.class)
+
+            //N+1 문제 fetch join 으로 해결
+            List<Member> members = em.createQuery("select m from Member m join fetch m.team", Member.class)
                     .getResultList();
 
             //SQL: select * from member,
