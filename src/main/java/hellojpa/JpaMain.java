@@ -1,8 +1,6 @@
 package hellojpa;
 
-import hellojpa.entity.Member;
-import hellojpa.entity.Order;
-import hellojpa.entity.Product;
+import hellojpa.entity.item.Movie;
 
 import static hellojpa.context.JpaPersistenceContext.create;
 
@@ -10,34 +8,22 @@ public class JpaMain {
     public static void main(String[] args) {
         create(em -> {
 
-            Member memberA = new Member();
-            memberA.setName("memberA");
-            em.persist(memberA);
+            Movie movie = new Movie();
+            movie.setName("바람과함께 사라지다");
+            movie.setPrice(10000);
+            movie.setDirector("movie director1");
+            movie.setActor("movie actor1");
 
-            Member memberB = new Member();
-            memberB.setName("memberB");
-            em.persist(memberB);
+            em.persist(movie);
 
-            Product productA = new Product();
-            productA.setName("productA");
-            em.persist(productA);
-
-            Product productB = new Product();
-            productB.setName("productB");
-            em.persist(productB);
-
-            Order orderA = new Order();
-            orderA.setMember(memberA);
-            orderA.setProduct(productA);
-            em.persist(orderA);
-
-            Order orderB = new Order();
-            orderB.setMember(memberB);
-            orderB.setProduct(productB);
-            em.persist(orderB);
-
-            em.flush();
+            em.flush(); //DB 재조회를 위해 1차캐시 제거
             em.clear();
+
+            Movie findMovie = em.find(Movie.class, movie.getId());
+            System.out.println("findMovie = " + findMovie.getName());
+            System.out.println("findMovie = " + findMovie.getActor());
+            System.out.println("findMovie = " + findMovie.getDirector());
+            System.out.println("findMovie = " + findMovie.getPrice());
         });
     }
 }
