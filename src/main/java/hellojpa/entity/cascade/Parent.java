@@ -35,7 +35,7 @@ public class Parent {
      *          부모를 제거할 때 자식도 함께 제거된다.
      *          이것은 CascadeType.REMOVE처럼 동작한다.
      */
-    @OneToMany(mappedBy = "parent", orphanRemoval = true)
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<Child> childList = new ArrayList<>();
 
     public Long getId() {
