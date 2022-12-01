@@ -11,17 +11,27 @@ import static hellojpa.context.JpaPersistenceContext.create;
 public class JpaMain {
     public static void main(String[] args) {
         create((em, emf) -> {
-            Member member = new Member();
-            member.setName("member");
-            member.setHomeAddress(new Address("city","addr","zipcode"));
-            member.setWorkPeriod(new Period(LocalDateTime.now(), LocalDateTime.of(2023, 03, 22, 10, 00)));
-            em.persist(member);
+            Address address = new Address("city", "address", "zipcode");
+
+            Member member1 = new Member();
+            member1.setName("member1");
+            member1.setHomeAddress(address);
+            em.persist(member1);
+
+            Member member2 = new Member();
+            member2.setName("member2");
+            member2.setHomeAddress(address);
+            em.persist(member2);
+
+            member1.getHomeAddress().setCity("newCity"); //member1 만 수정하려는 의도의 코드
 
             em.flush();
             em.clear();
 
-            Member findMember = em.find(Member.class, member.getId());
-            System.out.println("findMember = " + findMember.getHomeAddress());
+            //but member1, member2 모두 업데이트가 됨
+            System.out.println("member2.getHomeAddress().getCity() = " + member2.getHomeAddress().getCity());
+            System.out.println("member1.getHomeAddress().getCity() = " + member1.getHomeAddress().getCity());
+
         });
     }
 }
