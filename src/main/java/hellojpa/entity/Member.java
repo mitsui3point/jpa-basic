@@ -32,6 +32,17 @@ public class Member extends BaseEntity {
     @Embedded
     private Address homeAddress;//Address;주소
 
+    @Embedded
+    @AttributeOverrides(value = {
+            @AttributeOverride(name = "city", column = @Column(name = "WORK_CITY")),
+            @AttributeOverride(name = "address", column = @Column(name = "WORK_ADDRESS")),
+            @AttributeOverride(name = "zipcode", column = @Column(name = "WORK_ZIPCODE"))
+    })
+    private Address workAddress;
+
+    public Member() {
+    }
+
     public Long getId() {
         return id;
     }
