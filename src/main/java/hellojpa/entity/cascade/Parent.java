@@ -30,8 +30,12 @@ public class Parent {
      *          여러개의 게시판에 종속된 첨부파일 엔티티는 사용하면 안됨.
      *  - 특정 엔티티가 개인 소유할 때 사용
      *  - @OneToOne, @OneToMany만 가능
+     *  - 참고: 개념적으로 부모를 제거하면 자식은 고아가 된다.
+     *          따라서 고아 객체 제거 기능을 활성화 하면,
+     *          부모를 제거할 때 자식도 함께 제거된다.
+     *          이것은 CascadeType.REMOVE처럼 동작한다.
      */
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "parent", orphanRemoval = true)
     private List<Child> childList = new ArrayList<>();
 
     public Long getId() {
