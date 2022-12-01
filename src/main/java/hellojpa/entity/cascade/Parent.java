@@ -34,8 +34,18 @@ public class Parent {
      *          따라서 고아 객체 제거 기능을 활성화 하면,
      *          부모를 제거할 때 자식도 함께 제거된다.
      *          이것은 CascadeType.REMOVE처럼 동작한다.
+     *
+     * 영속성 전이 + 고아 객체, 생명주기
+     *  - CascadeType.ALL + orphanRemovel=true
+     *  - 스스로 생명주기를 관리하는 엔티티는 em.persist()로 영속화, em.remove()로 제거
+     *  - 두 옵션을 모두 활성화 하면 부모 엔티티를 통해서 자식의 생명주기를 관리할 수 있음
+     *  - 도메인 주도 설계(DDD)의 Aggregate Root개념을 구현할 때 유용
+     *      - Aggregate Root
+     *          : DDD Aggregate root 구현 개념
+     *          : Repository 는 Aggregate root 만 contact 하고, 나머지는 Repository를 만들지 않는 것이 더 낫다.
+     *          : 참고; https://eocoding.tistory.com/36
      */
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Child> childList = new ArrayList<>();
 
     public Long getId() {
