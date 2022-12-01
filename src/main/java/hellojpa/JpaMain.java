@@ -12,6 +12,7 @@ public class JpaMain {
     public static void main(String[] args) {
         create((em, emf) -> {
             Address address = new Address("city", "address", "zipcode");
+            Address newAddress = new Address("newcity", address.getAddress(), address.getZipcode());//값 타입 복사
 
             Member member1 = new Member();
             member1.setName("member1");
@@ -20,17 +21,15 @@ public class JpaMain {
 
             Member member2 = new Member();
             member2.setName("member2");
-            member2.setHomeAddress(address);
+            member2.setHomeAddress(newAddress);
             em.persist(member2);
-
-            member1.getHomeAddress().setCity("newCity"); //member1 만 수정하려는 의도의 코드
 
             em.flush();
             em.clear();
 
-            //but member1, member2 모두 업데이트가 됨
-            System.out.println("member2.getHomeAddress().getCity() = " + member2.getHomeAddress().getCity());
+            //member1, member2 의도된 값이 입력됨
             System.out.println("member1.getHomeAddress().getCity() = " + member1.getHomeAddress().getCity());
+            System.out.println("member2.getHomeAddress().getCity() = " + member2.getHomeAddress().getCity());
 
         });
     }
