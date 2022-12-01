@@ -1,33 +1,27 @@
 package hellojpa;
 
-import hellojpa.entity.cascade.Child;
-import hellojpa.entity.cascade.Parent;
+import hellojpa.entity.Member;
+import hellojpa.entity.embeddable.Address;
+import hellojpa.entity.embeddable.Period;
+
+import java.time.LocalDateTime;
 
 import static hellojpa.context.JpaPersistenceContext.create;
 
 public class JpaMain {
     public static void main(String[] args) {
         create((em, emf) -> {
-            Child child1 = new Child();
-            child1.setName("child1");
-
-            Child child2 = new Child();
-            child2.setName("child2");
-
-            Parent parent = new Parent();
-            parent.setName("parent1");
-            parent.addChild(child1);
-            parent.addChild(child2);
-
-            em.persist(parent);
+            Member member = new Member();
+            member.setName("member");
+            member.setHomeAddress(new Address("city","addr","zipcode"));
+            member.setWorkPeriod(new Period(LocalDateTime.now(), LocalDateTime.of(2023, 03, 22, 10, 00)));
+            em.persist(member);
 
             em.flush();
             em.clear();
 
-            System.out.println("========================");
-            Parent findParent = em.find(Parent.class, parent.getId());
-            em.remove(findParent);
-            System.out.println("========================");
+            Member findMember = em.find(Member.class, member.getId());
+            System.out.println("findMember = " + findMember.getHomeAddress());
         });
     }
 }

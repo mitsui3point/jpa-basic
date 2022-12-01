@@ -1,6 +1,8 @@
 package hellojpa.entity;
 
 import hellojpa.entity.base.BaseEntity;
+import hellojpa.entity.embeddable.Address;
+import hellojpa.entity.embeddable.Period;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -24,6 +26,12 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
+    @Embedded
+    private Period workPeriod;//Period;기간
+
+    @Embedded
+    private Address homeAddress;//Address;주소
+
     public Long getId() {
         return id;
     }
@@ -46,5 +54,21 @@ public class Member extends BaseEntity {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public Period getWorkPeriod() {
+        return workPeriod;
+    }
+
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
+    }
+
+    public Address getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
     }
 }
