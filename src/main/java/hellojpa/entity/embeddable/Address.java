@@ -1,6 +1,7 @@
 package hellojpa.entity.embeddable;
 
 import javax.persistence.Embeddable;
+import java.util.Objects;
 
 @Embeddable
 public class Address {
@@ -39,5 +40,21 @@ public class Address {
 
     private void setZipcode(String zipcode) {
         this.zipcode = zipcode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address1 = (Address) o;
+        return Objects.equals(getCity(), address1.getCity()) &&
+                Objects.equals(getAddress(), address1.getAddress()) &&
+                Objects.equals(getZipcode(), address1.getZipcode());
+    }
+
+    @Override
+    public int hashCode() {
+        //https://tecoble.techcourse.co.kr/post/2020-07-29-equals-and-hashCode/
+        return Objects.hash(getCity(), getAddress(), getZipcode());
     }
 }
