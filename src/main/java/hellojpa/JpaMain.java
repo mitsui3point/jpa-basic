@@ -26,18 +26,23 @@ public class JpaMain {
             em.clear();
 
             System.out.println("================ start ================");
-            Member findMember = em.find(Member.class, member.getId());//지연로딩 member 만 로딩한다.
+            Member findMember = em.find(Member.class, member.getId());
 
-            Set<String> favoriteFoods = findMember.getFavoriteFoods();
-            for (String favoriteFood : favoriteFoods) {
-                System.out.println("favoriteFood = " + favoriteFood);
-            }
+            //homeCity -> newCity
+//            findMember.getHomeAddress().setCity("newCity");
+            Address original = findMember.getHomeAddress();
+            findMember.putHomeAddress(new Address("newCity", original.getStreet(), original.getZipcode()));
 
-            List<Address> addressHistories = findMember.getAddressHistory();
-            for (Address addressHistory : addressHistories) {
-                System.out.println("addressHistory = " + addressHistory.getCity());
-            }
+            //치킨 -> 한식
+            findMember.getFavoriteFoods().remove("치킨");
+            findMember.getFavoriteFoods().add("한식");
 
+            //old1City -> newCity
+            /**기본적으로 remove 대상을 찾을 때 equals() 메서드(Address @Override equals())를 사용.
+             * Address 내에 equals(), hashCode() @Override 메서드가 구현되어있지 않으면 값비교를 제대로 하지 못해서 타겟 데이터가 삭제되지 않음*/
+            Address old1City = new Address("old1City", "street", "10000");
+            findMember.getAddressHistory().remove(old1City);
+            findMember.getAddressHistory().add(new Address("newCity", old1City.getStreet(), old1City.getZipcode()));
         });
     }
 }
