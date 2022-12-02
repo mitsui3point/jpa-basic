@@ -22,14 +22,14 @@ public class Member {
     @Embedded
     private Address homeAddress;
 
-    @ElementCollection
+    @ElementCollection//(fetch = ) default type LAZY
     @CollectionTable(name = "FAVORITE_FOOD",
             joinColumns = @JoinColumn(name = "MEMBER_ID"))
     @Column(name = "FOOD_NAME")
     private Set<String> favoriteFoods = new HashSet<>();
 
 
-    @ElementCollection
+    @ElementCollection//(fetch = ) default type LAZY
     @CollectionTable(name = "ADDRESS",
             joinColumns = @JoinColumn(name = "MEMBER_ID"))
     private List<Address> addressHistory = new ArrayList<>();

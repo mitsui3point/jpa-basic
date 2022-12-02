@@ -3,6 +3,9 @@ package hellojpa;
 import hellojpa.entity.Member;
 import hellojpa.entity.embeddable.Address;
 
+import java.util.List;
+import java.util.Set;
+
 import static hellojpa.context.JpaPersistenceContext.create;
 
 public class JpaMain {
@@ -17,9 +20,24 @@ public class JpaMain {
             member.getFavoriteFoods().add("피자");
             member.getFavoriteFoods().add("족발");
 
-            //값타입 collection 도 엔티티 내부에 String, int 필드 처럼 member 엔티티 하나에 소속되어 저장, 수정, 삭제된다.
-            //그래서 값타입 collection 은 영속성 전이(Cascade), 고아 객체 제거 기능을 필수로 가지고 있다고 볼 수 있다.
             em.persist(member);
+
+            em.flush();
+            em.clear();
+
+            System.out.println("================ start ================");
+            Member findMember = em.find(Member.class, member.getId());//지연로딩 member 만 로딩한다.
+
+            Set<String> favoriteFoods = findMember.getFavoriteFoods();
+            for (String favoriteFood : favoriteFoods) {
+                System.out.println("favoriteFood = " + favoriteFood);
+            }
+
+            List<Address> addressHistories = findMember.getAddressHistory();
+            for (Address addressHistory : addressHistories) {
+                System.out.println("addressHistory = " + addressHistory.getCity());
+            }
+
         });
     }
 }
