@@ -6,15 +6,15 @@ import java.util.Objects;
 @Embeddable
 public class Address {
     private String city;
-    private String address;
+    private String street;
     private String zipcode;
 
     public Address() {
     }
 
-    public Address(String city, String address, String zipcode) {
+    public Address(String city, String street, String zipcode) {
         this.city = city;
-        this.address = address;
+        this.street = street;
         this.zipcode = zipcode;
     }
 
@@ -26,12 +26,12 @@ public class Address {
         this.city = city;
     }
 
-    public String getAddress() {
-        return address;
+    public String getStreet() {
+        return street;
     }
 
-    private void setAddress(String address) {
-        this.address = address;
+    private void setStreet(String address) {
+        this.street = address;
     }
 
     public String getZipcode() {
@@ -48,13 +48,13 @@ public class Address {
         if (o == null || getClass() != o.getClass()) return false;
         Address address1 = (Address) o;
         return Objects.equals(getCity(), address1.getCity()) &&
-                Objects.equals(getAddress(), address1.getAddress()) &&
+                Objects.equals(getStreet(), address1.getStreet()) &&
                 Objects.equals(getZipcode(), address1.getZipcode());
     }
 
     @Override
     public int hashCode() {
         //https://tecoble.techcourse.co.kr/post/2020-07-29-equals-and-hashCode/
-        return Objects.hash(getCity(), getAddress(), getZipcode());
+        return Objects.hash(getCity(), getStreet(), getZipcode());
     }
 }

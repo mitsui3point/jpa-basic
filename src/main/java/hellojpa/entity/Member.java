@@ -37,6 +37,11 @@ public class Member {
     public Member() {
     }
 
+    public Member(String name, Address homeAddress) {
+        this.name = name;
+        this.homeAddress = homeAddress;
+    }
+
     public Long getId() {
         return id;
     }
@@ -45,4 +50,20 @@ public class Member {
         return name;
     }
 
+    public Address getHomeAddress() {
+        return homeAddress;
+    }
+
+    public Set<String> getFavoriteFoods() {
+        return favoriteFoods;
+    }
+
+    public List<Address> getAddressHistory() {
+        return addressHistory;
+    }
+
+    //==연관관계 편의 메서드==//
+    public void putHomeAddress(Address address) {
+        this.homeAddress = address;
+    }
 }
